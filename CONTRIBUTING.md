@@ -54,11 +54,28 @@ Avoid committing generated files such as `node_modules/`, `dist/`, cache folders
 
 Before opening a pull request:
 
-- run `npm run dev`
-- test the affected UI or feature locally
-- take screenshots if the UI changed
-- describe what changed and why
-- mention before/after behavior clearly
+1. Review the live demo:
+
+   ```txt
+   https://codevault-2sp.pages.dev/
+   ```
+
+2. Run locally:
+
+   ```bash
+   npm install
+   npm run dev
+   ```
+
+3. Test your changes.
+
+4. Include screenshots for UI changes.
+
+5. Explain:
+
+- What changed
+- Why it changed
+- How it was tested
 
 ## Screenshots for UI Changes
 

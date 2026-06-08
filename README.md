@@ -1,10 +1,15 @@
-# CodeVault - Developer Code Notebook
+# CodeVault
 
-CodeVault is a dark, searchable **code snippet manager** and **developer notebook** for saving reusable code notes, explanations, tags, and syntax-highlighted snippets. It is a lightweight **React code notes app** built as a **Vite React Tailwind app** for developers who want a fast personal **code vault**.
+Save code the way you write code.
+
+A developer-focused code notebook for saving, organizing, searching, and reusing code snippets.
+
+CodeVault is a dark, searchable **code snippet manager** and **developer notebook** for reusable code notes, explanations, tags, and syntax-highlighted snippets. It is a lightweight **React code notes app** built as a **Vite React Tailwind app** for developers who want a fast personal **code vault**.
 
 ## Live Demo
 
-Live demo URL will be added after the Cloudflare Pages deployment finishes.
+🚀 Live Demo:
+https://codevault-2sp.pages.dev/
 
 Contributors should preview the live demo first, then run the project locally before opening a pull request.
 
@@ -30,16 +35,54 @@ Contributors should preview the live demo first, then run the project locally be
 - Ace Editor for syntax highlighting
 - Lucide React icons
 
-## Roadmap
+# 🚀 Future Vision
 
-- Add localStorage persistence
-- Add note deletion
-- Add copy success toast notification
-- Add save success toast notification
-- Add JSON export feature
-- Add JSON import feature
-- Improve mobile sidebar experience
-- Add Ctrl+N / Cmd+N shortcut for new note
+CodeVault is evolving from a simple code notebook into a complete developer knowledge workspace.
+
+Planned roadmap:
+
+### v0.2.0
+
+- localStorage persistence
+- delete notes
+- copy success toast
+- save success toast
+
+### v0.3.0
+
+- JSON export
+- JSON import
+- keyboard shortcuts
+- improved search experience
+
+### v0.4.0
+
+- Monaco Editor (VS Code engine)
+- syntax highlighted note previews
+- improved mobile experience
+- advanced filtering
+
+### Future Features
+
+- AI-powered snippet explanations
+- AI-generated tags
+- semantic search
+- natural language search
+- smart snippet organization
+- favorite collections
+- command palette
+- GitHub Gist integration
+- Notion integration
+- browser extension
+- VS Code extension
+- cloud sync
+- personal developer knowledge graph
+
+Long-term goal:
+
+> Become the personal knowledge base for developers.
+
+Not just a place to store code, but a place to remember, organize, understand, and reuse knowledge.
 
 ## Installation
 
@@ -140,6 +183,30 @@ Suggested workflow:
 7. Open a pull request with a clear before/after explanation.
 
 Read the full contributor guide in [CONTRIBUTING.md](CONTRIBUTING.md).
+
+# 🤝 Looking for Contributors
+
+Contributions are welcome.
+
+Current areas where contributors can help:
+
+- React
+- Tailwind CSS
+- Monaco Editor
+- Search & Filtering
+- Accessibility
+- Developer Tooling
+- Documentation
+- Future AI Integrations
+
+Check:
+
+- Issues
+- Discussions
+- Good First Issues
+- Help Wanted
+
+If you're looking to make your first open-source contribution, this project is beginner-friendly.
 
 ## Good First Issues
 
