@@ -4,11 +4,21 @@ Save code the way you write code.
 
 A developer-focused code notebook for saving, organizing, searching, and reusing code snippets.
 
-CodeVault is a dark, searchable **code snippet manager** and **developer notebook** for reusable code notes, explanations, tags, and syntax-highlighted snippets. It is a lightweight **React code notes app** built as a **Vite React Tailwind app** for developers who want a fast personal **code vault**.
+CodeVault gives developers a dedicated place to capture reusable snippets, add context, organize by tags and language, and quickly find code again when it matters.
+
+## Quick Links
+
+- [Live Demo](https://codevault-2sp.pages.dev/)
+- [Features](#features)
+- [Installation](#installation)
+- [Contributing](#contributing)
+- [Roadmap](#future-vision)
+- [Discussions](https://github.com/sayedrisat/codevault/discussions)
+- [Issues](https://github.com/sayedrisat/codevault/issues)
 
 ## Live Demo
 
-🚀 Live Demo:
+Live Demo:
 https://codevault-2sp.pages.dev/
 
 Contributors should preview the live demo first, then run the project locally before opening a pull request.
@@ -17,15 +27,33 @@ Contributors should preview the live demo first, then run the project locally be
 
 ![CodeVault UI Preview](public/screenshots/codevault-preview.png)
 
+## Project Status
+
+Current Version: v0.1.0-alpha
+
+Status: Active Development
+
+Looking for Contributors: Yes
+
+Primary Focus: Building a fast developer-focused code notebook.
+
 ## Features
 
 - Save reusable code notes with title, reason, language, tags, and snippet body
 - Search across note metadata and optional code content
-- Browse searchable code snippets by language, collection, and tags
+- Browse snippets by language, collection, and tags
 - Edit notes in a right-side drawer with syntax highlighting
 - Copy snippets quickly from preview cards
 - Responsive dark UI designed for developer workflows
 - Alpha roadmap for persistence, deletion, import/export, and toast feedback
+
+## Why CodeVault?
+
+Most note-taking apps treat code as a secondary feature.
+
+CodeVault is built around the idea that code is the note.
+
+Instead of storing snippets inside documents, CodeVault provides a dedicated workspace for organizing, searching, and reusing code efficiently.
 
 ## Tech Stack
 
@@ -35,7 +63,7 @@ Contributors should preview the live demo first, then run the project locally be
 - Ace Editor for syntax highlighting
 - Lucide React icons
 
-# 🚀 Future Vision
+## Future Vision
 
 CodeVault is evolving from a simple code notebook into a complete developer knowledge workspace.
 
@@ -65,10 +93,10 @@ Planned roadmap:
 ### Future Features
 
 - AI-powered snippet explanations
-- AI-generated tags
-- semantic search
-- natural language search
-- smart snippet organization
+- AI-generated learning notes
+- Semantic code search
+- Smart code relationships
+- Personal developer memory system
 - favorite collections
 - command palette
 - GitHub Gist integration
@@ -76,7 +104,6 @@ Planned roadmap:
 - browser extension
 - VS Code extension
 - cloud sync
-- personal developer knowledge graph
 
 Long-term goal:
 
@@ -184,7 +211,7 @@ Suggested workflow:
 
 Read the full contributor guide in [CONTRIBUTING.md](CONTRIBUTING.md).
 
-# 🤝 Looking for Contributors
+## Looking for Contributors
 
 Contributions are welcome.
 
@@ -193,7 +220,7 @@ Current areas where contributors can help:
 - React
 - Tailwind CSS
 - Monaco Editor
-- Search & Filtering
+- Search and Filtering
 - Accessibility
 - Developer Tooling
 - Documentation
@@ -201,12 +228,12 @@ Current areas where contributors can help:
 
 Check:
 
-- Issues
-- Discussions
-- Good First Issues
-- Help Wanted
+- [Issues](https://github.com/sayedrisat/codevault/issues)
+- [Discussions](https://github.com/sayedrisat/codevault/discussions)
+- [Good First Issues](https://github.com/sayedrisat/codevault/labels/good%20first%20issue)
+- [Help Wanted](https://github.com/sayedrisat/codevault/labels/help%20wanted)
 
-If you're looking to make your first open-source contribution, this project is beginner-friendly.
+If you are looking to make your first open-source contribution, this project is beginner-friendly.
 
 ## Good First Issues
 
@@ -218,10 +245,23 @@ Good first improvements include:
 - Improve mobile sidebar behavior
 - Update README screenshots
 
+## Core Maintainers
+
+- Sayed Risat
+- Coming soon..
+
+## Support the Project
+
+If you find CodeVault useful:
+
+- Star the repository
+- Share feedback
+- Open feature requests
+- Join Discussions
+- Contribute improvements
+
+Every contribution helps improve the developer experience.
+
 ## License
 
 CodeVault is released under the [MIT License](LICENSE).
-
-## Keywords
-
-CodeVault is a frontend project for developers looking for a code snippet manager, developer notebook, React code notes app, code vault, syntax highlighting, searchable code snippets, and a Vite React Tailwind app.
