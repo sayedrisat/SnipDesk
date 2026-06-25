@@ -248,7 +248,7 @@ Good first improvements include:
 ## Core Maintainers
 
 - Sayed Risat
-- Coming soon..
+- Aushah Gowhar
 
 ## Support the Project
 
