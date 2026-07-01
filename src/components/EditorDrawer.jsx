@@ -209,7 +209,7 @@ function EditorDrawer({
                 theme="tomorrow_night"
                 value={draft.code}
                 onChange={(value) => updateDraft("code", value)}
-                name="codevault-editor"
+                name="snipdesk-editor"
                 width="100%"
                 height="100%"
                 fontSize={14}

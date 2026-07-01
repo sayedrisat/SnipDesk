@@ -17,7 +17,7 @@ export const editorPlaceholders = {
   background: #161616;
 }`,
   HTML: `<section class="vault">
-  <h1>CodeVault++</h1>
+  <h1>SnipDesk</h1>
 </section>`,
   Python: `total = sum([1, 2, 3])
 print(total)`,

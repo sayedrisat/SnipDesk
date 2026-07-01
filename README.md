@@ -1,31 +1,31 @@
-# CodeVault
+# SnipDesk
 
 Save code the way you write code.
 
 A developer-focused code notebook for saving, organizing, searching, and reusing code snippets.
 
-CodeVault gives developers a dedicated place to capture reusable snippets, add context, organize by tags and language, and quickly find code again when it matters.
+SnipDesk gives developers a dedicated place to capture reusable snippets, add context, organize by tags and language, and quickly find code again when it matters.
 
 ## Quick Links
 
-- [Live Demo](https://codevault-2sp.pages.dev/)
+- [Live Demo](https://snipdesk-2sp.pages.dev/)
 - [Features](#features)
 - [Installation](#installation)
 - [Contributing](#contributing)
 - [Roadmap](#future-vision)
-- [Discussions](https://github.com/sayedrisat/codevault/discussions)
-- [Issues](https://github.com/sayedrisat/codevault/issues)
+- [Discussions](https://github.com/sayedrisat/SnipDesk/discussions)
+- [Issues](https://github.com/sayedrisat/SnipDesk/issues)
 
 ## Live Demo
 
 Live Demo:
-https://codevault-2sp.pages.dev/
+https://snipdesk-2sp.pages.dev/
 
 Contributors should preview the live demo first, then run the project locally before opening a pull request.
 
 ## Screenshot Preview
 
-![CodeVault UI Preview](public/screenshots/codevault-preview.png)
+![SnipDesk UI Preview](public/screenshots/snipdesk-preview.png)
 
 ## Project Status
 
@@ -47,13 +47,13 @@ Primary Focus: Building a fast developer-focused code notebook.
 - Responsive dark UI designed for developer workflows
 - Alpha roadmap for persistence, deletion, import/export, and toast feedback
 
-## Why CodeVault?
+## Why SnipDesk?
 
 Most note-taking apps treat code as a secondary feature.
 
-CodeVault is built around the idea that code is the note.
+SnipDesk is built around the idea that code is the note.
 
-Instead of storing snippets inside documents, CodeVault provides a dedicated workspace for organizing, searching, and reusing code efficiently.
+Instead of storing snippets inside documents, SnipDesk provides a dedicated workspace for organizing, searching, and reusing code efficiently.
 
 ## Tech Stack
 
@@ -65,7 +65,7 @@ Instead of storing snippets inside documents, CodeVault provides a dedicated wor
 
 ## Future Vision
 
-CodeVault is evolving from a simple code notebook into a complete developer knowledge workspace.
+SnipDesk is evolving from a simple code notebook into a complete developer knowledge workspace.
 
 Planned roadmap:
 
@@ -116,8 +116,8 @@ Not just a place to store code, but a place to remember, organize, understand, a
 Clone the repository:
 
 ```bash
-git clone https://github.com/sayedrisat/codevault.git
-cd codevault
+git clone https://github.com/sayedrisat/SnipDesk.git
+cd SnipDesk
 ```
 
 Install dependencies:
@@ -152,7 +152,7 @@ npm run preview
 
 ## Usage
 
-1. Open CodeVault in your browser.
+1. Open SnipDesk in your browser.
 2. Use the search bar to find saved snippets by title, tag, language, explanation, or code body.
 3. Select a language or tag from the sidebar to narrow the list.
 4. Click **New Note** to create a reusable code note.
@@ -165,8 +165,8 @@ npm run preview
 Before reviewing or opening a pull request, preview the live demo first, then run the project locally:
 
 ```bash
-git clone https://github.com/sayedrisat/codevault.git
-cd codevault
+git clone https://github.com/sayedrisat/SnipDesk.git
+cd SnipDesk
 npm install
 npm run dev
 ```
@@ -186,7 +186,7 @@ Before opening a PR, please:
 
 ## Cloudflare Pages Deployment
 
-CodeVault is prepared for Cloudflare Pages deployment from GitHub.
+SnipDesk is prepared for Cloudflare Pages deployment from GitHub.
 
 Recommended Cloudflare Pages settings:
 
@@ -228,10 +228,10 @@ Current areas where contributors can help:
 
 Check:
 
-- [Issues](https://github.com/sayedrisat/codevault/issues)
-- [Discussions](https://github.com/sayedrisat/codevault/discussions)
-- [Good First Issues](https://github.com/sayedrisat/codevault/labels/good%20first%20issue)
-- [Help Wanted](https://github.com/sayedrisat/codevault/labels/help%20wanted)
+- [Issues](https://github.com/sayedrisat/SnipDesk/issues)
+- [Discussions](https://github.com/sayedrisat/SnipDesk/discussions)
+- [Good First Issues](https://github.com/sayedrisat/SnipDesk/labels/good%20first%20issue)
+- [Help Wanted](https://github.com/sayedrisat/SnipDesk/labels/help%20wanted)
 
 If you are looking to make your first open-source contribution, this project is beginner-friendly.
 
@@ -252,7 +252,7 @@ Good first improvements include:
 
 ## Support the Project
 
-If you find CodeVault useful:
+If you find SnipDesk useful:
 
 - Star the repository
 - Share feedback
@@ -264,4 +264,4 @@ Every contribution helps improve the developer experience.
 
 ## License
 
-CodeVault is released under the [MIT License](LICENSE).
+SnipDesk is released under the [MIT License](LICENSE).
