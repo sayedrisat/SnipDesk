@@ -11,7 +11,7 @@ function Header({ onNewNote }) {
           <div className="min-w-0">
             <div className="flex items-center gap-2">
               <p className="truncate text-sm font-semibold text-vault-text sm:text-base">
-                SnipDesk
+                SnipDesk++
               </p>
               <Sparkles className="h-3.5 w-3.5 text-vault-accentSoft" aria-hidden="true" />
             </div>

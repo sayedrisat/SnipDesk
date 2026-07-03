@@ -165,8 +165,8 @@ npm run preview
 Before reviewing or opening a pull request, preview the live demo first, then run the project locally:
 
 ```bash
-git clone https://github.com/sayedrisat/SnipDesk.git
-cd SnipDesk
+git clone https://github.com/sayedrisat/snipdesk.git
+cd snipdesk
 npm install
 npm run dev
 ```
