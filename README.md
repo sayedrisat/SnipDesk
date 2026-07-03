@@ -8,24 +8,24 @@ SnipDesk gives developers a dedicated place to capture reusable snippets, add co
 
 ## Quick Links
 
-- [Live Demo](https://codevault-2sp.pages.dev/)
+- [Live Demo](https://snipdesk-2sp.pages.dev/)
 - [Features](#features)
 - [Installation](#installation)
 - [Contributing](#contributing)
 - [Roadmap](#future-vision)
-- [Discussions](https://github.com/sayedrisat/codevault/discussions)
-- [Issues](https://github.com/sayedrisat/codevault/issues)
+- [Discussions](https://github.com/sayedrisat/SnipDesk/discussions)
+- [Issues](https://github.com/sayedrisat/SnipDesk/issues)
 
 ## Live Demo
 
 Live Demo:
-https://codevault-2sp.pages.dev/
+https://snipdesk-2sp.pages.dev/
 
 Contributors should preview the live demo first, then run the project locally before opening a pull request.
 
 ## Screenshot Preview
 
-![CodeVault UI Preview](public/screenshots/codevault-preview.png)
+![SnipDesk UI Preview](public/screenshots/snipdesk-preview.png)
 
 ## Project Status
 
@@ -116,7 +116,7 @@ Not just a place to store code, but a place to remember, organize, understand, a
 Clone the repository:
 
 ```bash
-git clone https://github.com/sayedrisat/codevault.git
+git clone https://github.com/sayedrisat/SnipDesk.git
 cd SnipDesk
 ```
 
@@ -228,10 +228,10 @@ Current areas where contributors can help:
 
 Check:
 
-- [Issues](https://github.com/sayedrisat/codevault/issues)
-- [Discussions](https://github.com/sayedrisat/codevault/discussions)
-- [Good First Issues](https://github.com/sayedrisat/codevault/labels/good%20first%20issue)
-- [Help Wanted](https://github.com/sayedrisat/codevault/labels/help%20wanted)
+- [Issues](https://github.com/sayedrisat/SnipDesk/issues)
+- [Discussions](https://github.com/sayedrisat/SnipDesk/discussions)
+- [Good First Issues](https://github.com/sayedrisat/SnipDesk/labels/good%20first%20issue)
+- [Help Wanted](https://github.com/sayedrisat/SnipDesk/labels/help%20wanted)
 
 If you are looking to make your first open-source contribution, this project is beginner-friendly.
 

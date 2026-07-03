@@ -57,7 +57,7 @@ Before opening a pull request:
 1. Review the live demo:
 
    ```txt
-   https://codevault-2sp.pages.dev/
+   https://snipdesk-2sp.pages.dev/
    ```
 
 2. Run locally:
