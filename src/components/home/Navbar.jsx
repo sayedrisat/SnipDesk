@@ -32,7 +32,7 @@ export default function Navbar() {
 
   return (
     <nav ref={navRef} id="navbar">
-      <div className="nav-logo">CodeVault</div>
+      <div className="nav-logo">SnipDesk</div>
       <div className="nav-links">
         <a href="#features">Features</a>
         <a href="#how">How it works</a>

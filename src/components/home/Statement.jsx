@@ -5,7 +5,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const STATEMENT =
-  "Your best code deserves a place you trust. CodeVault keeps it close.";
+  "Your best code deserves a place you trust. SnipDesk keeps it close.";
 
 export default function Statement() {
   const sectionRef = useRef(null);
@@ -39,7 +39,7 @@ export default function Statement() {
         {words.map((w, i) => (
           <span
             key={i}
-            className={`word${w.includes("CodeVault") || w.includes("doesn't.") ? " accent" : ""}`}>
+            className={`word${w.includes("SnipDesk") || w.includes("doesn't.") ? " accent" : ""}`}>
             {w}
           </span>
         ))}

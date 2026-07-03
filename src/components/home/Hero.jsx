@@ -83,7 +83,7 @@ export default function Hero() {
         </h1>
 
         <p ref={subRef} className="hero-sub">
-          CodeVault is your personal code memory: a focused place to keep
+          SnipDesk is your personal code memory: a focused place to keep
           snippets, commands, patterns, and fixes you reuse every week.
         </p>
 

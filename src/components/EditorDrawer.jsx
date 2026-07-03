@@ -1,7 +1,11 @@
 import { useEffect, useMemo } from "react";
 import AceEditor from "react-ace";
 import { Check, Code2, Save, X } from "lucide-react";
-import { aceModes, editorPlaceholders, languageOptions } from "../data/languages.js";
+import {
+  aceModes,
+  editorPlaceholders,
+  languageOptions,
+} from "../data/languages.js";
 
 import "ace-builds/src-noconflict/ext-language_tools";
 import "ace-builds/src-noconflict/mode-css";
@@ -33,7 +37,10 @@ function EditorDrawer({
   onSave,
   open,
 }) {
-  const mode = useMemo(() => aceModes[draft.language] || "javascript", [draft.language]);
+  const mode = useMemo(
+    () => aceModes[draft.language] || "javascript",
+    [draft.language],
+  );
 
   useEffect(() => {
     if (!open) return undefined;
@@ -58,8 +65,7 @@ function EditorDrawer({
         open ? "pointer-events-auto" : "pointer-events-none"
       }`}
       aria-hidden={!open}
-      inert={open ? undefined : ""}
-    >
+      inert={open ? undefined : ""}>
       <div
         className={`absolute inset-0 bg-black/62 backdrop-blur-[2px] transition-opacity duration-300 ${
           open ? "opacity-100" : "opacity-0"
@@ -73,8 +79,7 @@ function EditorDrawer({
         }`}
         role="dialog"
         aria-modal="true"
-        aria-label={isEditing ? "Edit code note" : "New code note"}
-      >
+        aria-label={isEditing ? "Edit code note" : "New code note"}>
         <div className="flex items-center justify-between border-b border-vault-border px-5 py-4">
           <div className="min-w-0">
             <div className="flex items-center gap-2">
@@ -83,15 +88,16 @@ function EditorDrawer({
                 {isEditing ? "Edit Code Note" : "New Code Note"}
               </h2>
             </div>
-            <p className="mt-1 text-sm text-vault-muted">Save a reusable snippet</p>
+            <p className="mt-1 text-sm text-vault-muted">
+              Save a reusable snippet
+            </p>
           </div>
 
           <button
             className="flex h-9 w-9 items-center justify-center rounded-lg border border-vault-border text-vault-muted transition hover:bg-vault-card hover:text-vault-text focus:outline-none focus:ring-2 focus:ring-vault-accent focus:ring-offset-2 focus:ring-offset-vault-surface"
             onClick={onClose}
             type="button"
-            aria-label="Close drawer"
-          >
+            aria-label="Close drawer">
             <X className="h-4 w-4" aria-hidden="true" />
           </button>
         </div>
@@ -102,8 +108,7 @@ function EditorDrawer({
             onSubmit={(event) => {
               event.preventDefault();
               onSave(draft);
-            }}
-          >
+            }}>
             <div className="space-y-5 p-5 lg:min-h-0 lg:flex-1 lg:overflow-y-auto">
               <Field label="Title">
                 <input
@@ -126,9 +131,10 @@ function EditorDrawer({
               <Field label="Language">
                 <select
                   value={draft.language}
-                  onChange={(event) => updateDraft("language", event.target.value)}
-                  className={`${fieldClassName} h-11 px-3`}
-                >
+                  onChange={(event) =>
+                    updateDraft("language", event.target.value)
+                  }
+                  className={`${fieldClassName} h-11 px-3`}>
                   {languageOptions.map((language) => (
                     <option key={language}>{language}</option>
                   ))}
@@ -151,20 +157,22 @@ function EditorDrawer({
                     draft.favorite
                       ? "border-vault-accent bg-vault-accent"
                       : "border-vault-border bg-vault-surface"
-                  }`}
-                >
+                  }`}>
                   <input
                     checked={draft.favorite}
-                    onChange={(event) => updateDraft("favorite", event.target.checked)}
+                    onChange={(event) =>
+                      updateDraft("favorite", event.target.checked)
+                    }
                     className="sr-only"
                     type="checkbox"
                   />
                   <span
                     className={`ml-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-white text-vault-bg transition ${
                       draft.favorite ? "translate-x-5" : "translate-x-0"
-                    }`}
-                  >
-                    {draft.favorite && <Check className="h-3 w-3" aria-hidden="true" />}
+                    }`}>
+                    {draft.favorite && (
+                      <Check className="h-3 w-3" aria-hidden="true" />
+                    )}
                   </span>
                 </span>
               </label>
@@ -174,14 +182,10 @@ function EditorDrawer({
               <button
                 className={secondaryButtonClassName}
                 onClick={onClose}
-                type="button"
-              >
+                type="button">
                 Cancel
               </button>
-              <button
-                className={primaryButtonClassName}
-                type="submit"
-              >
+              <button className={primaryButtonClassName} type="submit">
                 <Save className="h-4 w-4" aria-hidden="true" />
                 Save Note
               </button>
@@ -209,7 +213,7 @@ function EditorDrawer({
                 theme="tomorrow_night"
                 value={draft.code}
                 onChange={(value) => updateDraft("code", value)}
-                name="codevault-editor"
+                name="snipdesk-editor"
                 width="100%"
                 height="100%"
                 fontSize={14}

@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: Report a reproducible problem in CodeVault
+about: Report a reproducible problem in SnipDesk
 title: "bug: "
 labels: bug
 assignees: ""

@@ -2,7 +2,7 @@
 
 ## Our Pledge
 
-We want CodeVault to be a welcoming project for contributors of all experience levels. Contributors are expected to communicate with patience, respect, and good faith.
+We want SnipDesk to be a welcoming project for contributors of all experience levels. Contributors are expected to communicate with patience, respect, and good faith.
 
 ## Expected Behavior
 

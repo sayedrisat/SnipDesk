@@ -84,7 +84,7 @@ export default function Showcase() {
               <span className="dot dot-r" />
               <span className="dot dot-y" />
               <span className="dot dot-g" />
-              <span className="window-tab">~/projects/codevault</span>
+              <span className="window-tab">~/projects/snipdesk</span>
             </div>
             <div className="window-body">
               <HomeSidebar ref={sidebarRef} />

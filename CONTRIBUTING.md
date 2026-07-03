@@ -1,6 +1,6 @@
-# Contributing to CodeVault
+# Contributing to SnipDesk
 
-Thanks for helping improve CodeVault. This project is a small frontend app, so the best contributions are focused, easy to review, and tested locally.
+Thanks for helping improve SnipDesk. This project is a small frontend app, so the best contributions are focused, easy to review, and tested locally.
 
 ## Pick an Issue
 
