@@ -1,7 +1,11 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 
-
+/**
+ * Replicates the original magnetic button behaviour:
+ * on mousemove the button translates 25% of the distance between the
+ * cursor and the button's center; on mouseleave it springs back to 0,0.
+ */
 export default function useMagneticButton() {
   const ref = useRef(null);
 
