@@ -1,4 +1,15 @@
-export default function SnippetCard({ note, index, onOpen, onCopy, onDelete }) {
+import { getRecallSummary, RECALL_INTERVALS } from "../hooks/useNotes.js";
+
+export default function SnippetCard({
+  note,
+  index,
+  onOpen,
+  onCopy,
+  onDelete,
+  onRecall,
+}) {
+  const recall = getRecallSummary(note);
+
   return (
     <div
       className="av-card"
@@ -11,8 +22,8 @@ export default function SnippetCard({ note, index, onOpen, onCopy, onDelete }) {
           <button
             className="av-icon-btn"
             title="Copy code"
-            onClick={(e) => {
-              e.stopPropagation();
+            onClick={(event) => {
+              event.stopPropagation();
               onCopy(note.code);
             }}
           >
@@ -21,8 +32,8 @@ export default function SnippetCard({ note, index, onOpen, onCopy, onDelete }) {
           <button
             className="av-icon-btn danger"
             title="Delete"
-            onClick={(e) => {
-              e.stopPropagation();
+            onClick={(event) => {
+              event.stopPropagation();
               onDelete(note.id);
             }}
           >
@@ -30,11 +41,57 @@ export default function SnippetCard({ note, index, onOpen, onCopy, onDelete }) {
           </button>
         </div>
       </div>
-      <div className="av-card-title">{note.title}</div>
+
+      <div className="av-card-title-row">
+        <div className="av-card-title">{note.title}</div>
+        {note.favorite && (
+          <span className="av-card-favorite" aria-label="Favorite snippet">
+            ♥
+          </span>
+        )}
+      </div>
+
       <div className="av-card-reason">{note.reason}</div>
+
+      {recall.enabled && (
+        <div className={`av-recall-card${recall.due ? " due" : ""}`}>
+          <div>
+            <span className="av-recall-kicker">1-4-7 Recall</span>
+            <strong>{recall.title}</strong>
+            <span>{recall.detail}</span>
+          </div>
+          <div className="av-recall-progress" aria-label="Recall progress">
+            {RECALL_INTERVALS.map((interval, step) => (
+              <span
+                key={interval}
+                className={
+                  step < recall.completedSteps || recall.mastered
+                    ? "complete"
+                    : ""
+                }
+              />
+            ))}
+          </div>
+          {!recall.mastered && (
+            <button
+              className="av-recall-action"
+              type="button"
+              onClick={(event) => {
+                event.stopPropagation();
+                onRecall(note.id);
+              }}
+            >
+              {recall.due ? "Recall" : "Recall early"}
+            </button>
+          )}
+        </div>
+      )}
+
       <div className="av-card-tags">
-        {note.tags.map((t) => (
-          <span key={t} className="av-card-tag">{t}</span>
+        {note.tags.map((tag) => (
+          <span key={tag} className="av-card-tag">
+            {tag}
+          </span>
         ))}
       </div>
     </div>

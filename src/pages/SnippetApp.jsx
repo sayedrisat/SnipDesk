@@ -13,6 +13,7 @@ export default function SnippetApp() {
   const {
     notes,
     filteredNotes,
+    collections,
     counts,
     activeCollection,
     setActiveCollection,
@@ -22,6 +23,11 @@ export default function SnippetApp() {
     setSearchQuery,
     saveNote,
     deleteNote,
+    markRecall,
+    resetRecall,
+    addCollection,
+    renameCollection,
+    deleteCollection,
   } = useNotes();
 
   const { message, show } = useToast();
@@ -88,6 +94,7 @@ export default function SnippetApp() {
         open={sidebarOpen}
         onClose={() => setSidebarOpen(false)}
         counts={counts}
+        collections={collections}
         activeCollection={activeCollection}
         setActiveCollection={setActiveCollection}
         activeLang={activeLang}
@@ -95,6 +102,9 @@ export default function SnippetApp() {
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
         onNewNote={openNewNote}
+        onAddCollection={addCollection}
+        onRenameCollection={renameCollection}
+        onDeleteCollection={deleteCollection}
       />
 
       <div
@@ -113,9 +123,14 @@ export default function SnippetApp() {
           <SnippetGrid
             notes={filteredNotes}
             view={view}
+            activeCollection={activeCollection}
             onOpen={openEditNote}
             onCopy={handleCopy}
             onDelete={handleDelete}
+            onRecall={(id) => {
+              markRecall(id);
+              show("Recall updated");
+            }}
             onNewNote={openNewNote}
           />
         </div>
@@ -126,11 +141,20 @@ export default function SnippetApp() {
           <EditorDrawer
             open={drawerOpen}
             editingNote={editingNote}
+            collections={collections}
             defaultLang={activeLang}
             defaultCollection={activeCollection}
             onClose={closeDrawer}
             onSave={handleSave}
             onDelete={handleDelete}
+            onRecall={(id) => {
+              markRecall(id);
+              show("Recall updated");
+            }}
+            onResetRecall={(id) => {
+              resetRecall(id);
+              show("Recall restarted");
+            }}
           />
         </Suspense>
       )}

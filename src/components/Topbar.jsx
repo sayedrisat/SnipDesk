@@ -1,9 +1,18 @@
+import { RECALL_COLLECTION } from "../hooks/useNotes.js";
+
 export default function Topbar({
   activeCollection,
   view,
   setView,
   onMenuClick,
 }) {
+  const currentLabel =
+    activeCollection === "All"
+      ? "All snippets"
+      : activeCollection === RECALL_COLLECTION
+        ? "147 Recall"
+        : activeCollection;
+
   return (
     <div className="av-topbar">
       <button
@@ -14,9 +23,7 @@ export default function Topbar({
       </button>
       <div className="av-crumb">
         Collections /{" "}
-        <span className="av-cur">
-          {activeCollection === "All" ? "All snippets" : activeCollection}
-        </span>
+        <span className="av-cur">{currentLabel}</span>
       </div>
       <div className="av-view-toggle">
         <button
