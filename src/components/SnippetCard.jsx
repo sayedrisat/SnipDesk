@@ -1,13 +1,6 @@
 import { getRecallSummary, RECALL_INTERVALS } from "../hooks/useNotes.js";
 
-export default function SnippetCard({
-  note,
-  index,
-  onOpen,
-  onCopy,
-  onDelete,
-  onRecall,
-}) {
+export default function SnippetCard({ note, index, onOpen, onCopy, onDelete, onRecall }) {
   const recall = getRecallSummary(note);
 
   return (
@@ -22,8 +15,8 @@ export default function SnippetCard({
           <button
             className="av-icon-btn"
             title="Copy code"
-            onClick={(event) => {
-              event.stopPropagation();
+            onClick={(e) => {
+              e.stopPropagation();
               onCopy(note.code);
             }}
           >
@@ -32,8 +25,8 @@ export default function SnippetCard({
           <button
             className="av-icon-btn danger"
             title="Delete"
-            onClick={(event) => {
-              event.stopPropagation();
+            onClick={(e) => {
+              e.stopPropagation();
               onDelete(note.id);
             }}
           >
@@ -41,16 +34,14 @@ export default function SnippetCard({
           </button>
         </div>
       </div>
-
-      <div className="av-card-title-row">
-        <div className="av-card-title">{note.title}</div>
+      <div className="av-card-title">
+        {note.title}
         {note.favorite && (
           <span className="av-card-favorite" aria-label="Favorite snippet">
             ♥
           </span>
         )}
       </div>
-
       <div className="av-card-reason">{note.reason}</div>
 
       {recall.enabled && (
@@ -76,8 +67,8 @@ export default function SnippetCard({
             <button
               className="av-recall-action"
               type="button"
-              onClick={(event) => {
-                event.stopPropagation();
+              onClick={(e) => {
+                e.stopPropagation();
                 onRecall(note.id);
               }}
             >
@@ -88,10 +79,8 @@ export default function SnippetCard({
       )}
 
       <div className="av-card-tags">
-        {note.tags.map((tag) => (
-          <span key={tag} className="av-card-tag">
-            {tag}
-          </span>
+        {note.tags.map((t) => (
+          <span key={t} className="av-card-tag">{t}</span>
         ))}
       </div>
     </div>

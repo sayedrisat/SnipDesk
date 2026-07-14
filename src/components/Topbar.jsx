@@ -6,7 +6,7 @@ export default function Topbar({
   setView,
   onMenuClick,
 }) {
-  const currentLabel =
+  const currentCollection =
     activeCollection === "All"
       ? "All snippets"
       : activeCollection === RECALL_COLLECTION
@@ -23,7 +23,9 @@ export default function Topbar({
       </button>
       <div className="av-crumb">
         Collections /{" "}
-        <span className="av-cur">{currentLabel}</span>
+        <span className="av-cur">
+          {currentCollection}
+        </span>
       </div>
       <div className="av-view-toggle">
         <button

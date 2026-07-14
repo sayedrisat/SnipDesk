@@ -33,15 +33,14 @@ export default function EditorDrawer({
 }) {
   const [form, setForm] = useState(EMPTY_FORM);
   const titleRef = useRef(null);
+  const recallSummary = editingNote ? getRecallSummary(editingNote) : null;
   const availableCollections =
     form.collection && !collections.includes(form.collection)
       ? [form.collection, ...collections]
       : collections;
-  const recallSummary = editingNote ? getRecallSummary(editingNote) : null;
 
   useEffect(() => {
-    if (!open) return undefined;
-
+    if (!open) return;
     if (editingNote) {
       setForm({
         title: editingNote.title,
@@ -62,36 +61,35 @@ export default function EditorDrawer({
           defaultCollection &&
           defaultCollection !== "All" &&
           defaultCollection !== "Favorites" &&
+          defaultCollection !== "Recall" &&
           collections.includes(defaultCollection)
             ? defaultCollection
             : firstCollection,
       });
     }
-
-    const focusTimer = setTimeout(() => titleRef.current?.focus(), 350);
-    return () => clearTimeout(focusTimer);
+    const t = setTimeout(
+      () => titleRef.current && titleRef.current.focus(),
+      350,
+    );
+    return () => clearTimeout(t);
   }, [open, editingNote, defaultLang, defaultCollection, collections]);
 
   useEffect(() => {
-    const handleEsc = (event) => {
-      if (event.key === "Escape" && open) onClose();
+    const handleEsc = (e) => {
+      if (e.key === "Escape" && open) onClose();
     };
-
     document.addEventListener("keydown", handleEsc);
     return () => document.removeEventListener("keydown", handleEsc);
   }, [open, onClose]);
 
-  const setField = (key) => (event) =>
-    setForm((current) => ({ ...current, [key]: event.target.value }));
-  const setTags = (tags) => setForm((current) => ({ ...current, tags }));
-  const setCode = (code) => setForm((current) => ({ ...current, code }));
+  const setField = (key) => (e) =>
+    setForm((f) => ({ ...f, [key]: e.target.value }));
+  const setTags = (tags) => setForm((f) => ({ ...f, tags }));
+  const setCode = (code) => setForm((f) => ({ ...f, code }));
   const toggleFavorite = () =>
-    setForm((current) => ({ ...current, favorite: !current.favorite }));
+    setForm((f) => ({ ...f, favorite: !f.favorite }));
   const toggleRecall = () =>
-    setForm((current) => ({
-      ...current,
-      recallEnabled: !current.recallEnabled,
-    }));
+    setForm((f) => ({ ...f, recallEnabled: !f.recallEnabled }));
 
   const handleSave = () => {
     const payload = {
@@ -104,7 +102,6 @@ export default function EditorDrawer({
       recallEnabled: form.recallEnabled,
       code: form.code,
     };
-
     onSave(payload, editingNote ? editingNote.id : null);
   };
 
@@ -119,22 +116,16 @@ export default function EditorDrawer({
               className={`av-heart-btn${form.favorite ? " active" : ""}`}
               onClick={toggleFavorite}
               type="button"
-              aria-label={
-                form.favorite ? "Remove from favorites" : "Add to favorites"
-              }
-              title={
-                form.favorite ? "Remove from favorites" : "Add to favorites"
-              }
+              aria-label={form.favorite ? "Remove from favorites" : "Add to favorites"}
+              title={form.favorite ? "Remove from favorites" : "Add to favorites"}
             >
               <Heart size={15} fill={form.favorite ? "currentColor" : "none"} />
             </button>
             <button
               className="av-drawer-close"
               onClick={onClose}
-              type="button"
-              aria-label="Close"
-            >
-              ×
+              aria-label="Close">
+              ✕
             </button>
           </div>
         </div>
@@ -155,16 +146,12 @@ export default function EditorDrawer({
             <div className="av-field">
               <label>Language</label>
               <select
-                className="appearance-none bg-[#1b1b1b]"
+                className="appearance-none bg-[#1b1b1b] "
                 value={form.lang}
-                onChange={setField("lang")}
-              >
-                {LANGUAGES.map((language) => (
-                  <option
-                    className="bg-[#1b1b1b] focus:bg-black"
-                    key={language}
-                  >
-                    {language}
+                onChange={setField("lang")}>
+                {LANGUAGES.map((l) => (
+                  <option className="bg-[#1b1b1b] focus:bg-black " key={l}>
+                    {l}
                   </option>
                 ))}
               </select>
@@ -173,15 +160,11 @@ export default function EditorDrawer({
               <label>Collection</label>
               <select
                 value={form.collection}
-                className="appearance-none bg-[#1b1b1b]"
-                onChange={setField("collection")}
-              >
-                {availableCollections.map((collection) => (
-                  <option
-                    className="bg-[#1b1b1b] focus:bg-black"
-                    key={collection}
-                  >
-                    {collection}
+                className="appearance-none bg-[#1b1b1b] "
+                onChange={setField("collection")}>
+                {availableCollections.map((c) => (
+                  <option className="bg-[#1b1b1b] focus:bg-black " key={c}>
+                    {c}
                   </option>
                 ))}
               </select>
@@ -288,19 +271,17 @@ export default function EditorDrawer({
           {editingNote ? (
             <button
               className="av-btn-danger-text"
-              onClick={() => onDelete(editingNote.id)}
-              type="button"
-            >
-              Delete
+              onClick={() => onDelete(editingNote.id)}>
+              🗑 Delete
             </button>
           ) : (
             <span />
           )}
           <div style={{ display: "flex", gap: 10, marginLeft: "auto" }}>
-            <button className="av-btn-ghost" onClick={onClose} type="button">
+            <button className="av-btn-ghost" onClick={onClose}>
               Cancel
             </button>
-            <button className="av-btn-primary" onClick={handleSave} type="button">
+            <button className="av-btn-primary" onClick={handleSave}>
               Save note
             </button>
           </div>

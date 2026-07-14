@@ -1,9 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { LANGUAGES, RECALL_COLLECTION } from "../hooks/useNotes.js";
 
-const DRAFT_ADD = "add";
-const DRAFT_RENAME = "rename";
-
 export default function Sidebar({
   open,
   onClose,
@@ -20,98 +17,88 @@ export default function Sidebar({
   onRenameCollection,
   onDeleteCollection,
 }) {
-  const [menuCollection, setMenuCollection] = useState(null);
-  const [draft, setDraft] = useState(null);
+  const [menuFor, setMenuFor] = useState(null);
+  const [draftMode, setDraftMode] = useState(null);
+  const [draftCollection, setDraftCollection] = useState(null);
   const [draftName, setDraftName] = useState("");
   const [draftError, setDraftError] = useState("");
-  const touchTimerRef = useRef(null);
-  const touchMenuOpenedRef = useRef(false);
+  const holdRef = useRef(null);
+  const skipClickRef = useRef(false);
 
   useEffect(() => {
-    const closeMenu = () => setMenuCollection(null);
+    const closeMenu = () => setMenuFor(null);
     document.addEventListener("click", closeMenu);
     return () => document.removeEventListener("click", closeMenu);
   }, []);
 
   useEffect(() => {
-    return () => {
-      if (touchTimerRef.current) clearTimeout(touchTimerRef.current);
-    };
+    return () => clearTimeout(holdRef.current);
   }, []);
-
-  const resetDraft = () => {
-    setDraft(null);
+  
+  const clearDraft = () => {
+    setDraftMode(null);
+    setDraftCollection(null);
     setDraftName("");
     setDraftError("");
   };
 
-  const selectCollection = (collection) => {
-    setActiveCollection(collection);
-    onClose();
-  };
-
-  const selectEditableCollection = (collection) => {
-    if (touchMenuOpenedRef.current) {
-      touchMenuOpenedRef.current = false;
+  const selectCollection = (c) => {
+    if (skipClickRef.current) {
+      skipClickRef.current = false;
       return;
     }
-
-    selectCollection(collection);
-  };
-
-  const selectLang = (language) => {
-    setActiveLang(activeLang === language ? null : language);
+    setActiveCollection(c);
     onClose();
   };
-
+  const selectLang = (l) => {
+    setActiveLang(activeLang === l ? null : l);
+    onClose();
+  };
   const handleNewNote = () => {
     onNewNote();
     onClose();
   };
 
-  const openCollectionMenu = (event, collection) => {
-    event.preventDefault();
-    event.stopPropagation();
-    resetDraft();
-    setMenuCollection((current) =>
-      current === collection ? null : collection,
-    );
+  const openMenu = (e, c) => {
+    e.preventDefault();
+    e.stopPropagation();
+    clearDraft();
+    setMenuFor((current) => (current === c ? null : c));
   };
 
-  const startTouchMenu = (collection) => {
-    if (touchTimerRef.current) clearTimeout(touchTimerRef.current);
-
-    touchTimerRef.current = setTimeout(() => {
-      touchMenuOpenedRef.current = true;
-      resetDraft();
-      setMenuCollection(collection);
+  const startHold = (c) => {
+    clearTimeout(holdRef.current);
+    holdRef.current = setTimeout(() => {
+      skipClickRef.current = true;
+      clearDraft();
+      setMenuFor(c);
     }, 550);
   };
 
-  const clearTouchMenu = () => {
-    if (touchTimerRef.current) {
-      clearTimeout(touchTimerRef.current);
-      touchTimerRef.current = null;
-    }
+  const stopHold = () => {
+    clearTimeout(holdRef.current);
+    holdRef.current = null;
   };
 
-  const startAddCollection = (event) => {
-    event.stopPropagation();
-    setMenuCollection(null);
-    setDraft({ type: DRAFT_ADD });
+  const startAdd = (e) => {
+    e.stopPropagation();
+    setMenuFor(null);
+    setDraftMode("add");
+    setDraftCollection(null);
     setDraftName("");
     setDraftError("");
   };
 
-  const startRenameCollection = (collection) => {
-    setMenuCollection(null);
-    setDraft({ type: DRAFT_RENAME, collection });
-    setDraftName(collection);
+  const startRename = (c) => {
+    setMenuFor(null);
+    setDraftMode("rename");
+    setDraftCollection(c);
+    setDraftName(c);
     setDraftError("");
   };
 
-  const submitDraft = (event) => {
-    event.preventDefault();
+  const saveCollection = (e) => {
+    e.preventDefault();
     const name = draftName.trim();
 
     if (!name) {
@@ -120,8 +107,8 @@ export default function Sidebar({
     }
 
     const saved =
-      draft?.type === DRAFT_RENAME
-        ? onRenameCollection(draft.collection, name)
+      draftMode === "rename"
+        ? onRenameCollection(draftCollection, name)
         : onAddCollection(name);
 
     if (!saved) {
@@ -129,44 +116,35 @@ export default function Sidebar({
       return;
     }
 
-    resetDraft();
+    clearDraft();
   };
 
-  const deleteCollection = (collection) => {
-    setMenuCollection(null);
-
-    const confirmed = window.confirm(
-      `Delete "${collection}"? Snippets will move to another collection.`,
-    );
-
-    if (confirmed) {
-      onDeleteCollection(collection);
-      resetDraft();
+  const removeCollection = (c) => {
+    setMenuFor(null);
+    if (window.confirm(`Delete "${c}"? Snippets will move to another collection.`)) {
+      onDeleteCollection(c);
+      clearDraft();
     }
   };
 
-  const renderDraft = () => (
-    <form className="av-collection-editor" onSubmit={submitDraft}>
+  const collectionForm = () => (
+    <form className="av-collection-editor" onSubmit={saveCollection}>
       <input
         autoFocus
         type="text"
         value={draftName}
         placeholder="Collection name"
-        onChange={(event) => {
-          setDraftName(event.target.value);
+        onChange={(e) => {
+          setDraftName(e.target.value);
           setDraftError("");
         }}
-        onKeyDown={(event) => {
-          if (event.key === "Escape") resetDraft();
+        onKeyDown={(e) => {
+          if (e.key === "Escape") clearDraft();
         }}
       />
       <div className="av-collection-editor-actions">
-        <button type="submit">
-          {draft?.type === DRAFT_RENAME ? "Save" : "Add"}
-        </button>
-        <button type="button" onClick={resetDraft}>
-          Cancel
-        </button>
+        <button type="submit">{draftMode === "rename" ? "Save" : "Add"}</button>
+        <button type="button" onClick={clearDraft}>Cancel</button>
       </div>
       {draftError && <span className="av-collection-error">{draftError}</span>}
     </form>
@@ -182,9 +160,8 @@ export default function Sidebar({
         <button
           className="av-sidebar-close"
           onClick={onClose}
-          aria-label="Close menu"
-        >
-          x
+          aria-label="Close menu">
+          ✕
         </button>
       </div>
 
@@ -198,7 +175,7 @@ export default function Sidebar({
           type="text"
           placeholder="Search snippets..."
           value={searchQuery}
-          onChange={(event) => setSearchQuery(event.target.value)}
+          onChange={(e) => setSearchQuery(e.target.value)}
         />
       </div>
 
@@ -207,85 +184,65 @@ export default function Sidebar({
         <button
           className="av-collection-add-btn"
           type="button"
-          onClick={startAddCollection}
+          onClick={startAdd}
           aria-label="Add collection"
-          title="Add collection"
-        >
+          title="Add collection">
           +
         </button>
       </div>
-
       <div className="av-side-list">
-        {draft?.type === DRAFT_ADD && renderDraft()}
+        {draftMode === "add" && collectionForm()}
 
         <button
           className={`av-side-item${activeCollection === "All" ? " active" : ""}`}
-          onClick={() => selectCollection("All")}
-        >
+          onClick={() => selectCollection("All")}>
           <span className="av-side-dot" />
           <span className="av-side-name">All snippets</span>
           <span className="av-side-count">{counts.All ?? 0}</span>
         </button>
         <button
           className={`av-side-item${activeCollection === "Favorites" ? " active" : ""}`}
-          onClick={() => selectCollection("Favorites")}
-        >
+          onClick={() => selectCollection("Favorites")}>
           <span className="av-side-dot av-side-heart" />
           <span className="av-side-name">Favorites</span>
           <span className="av-side-count">{counts.Favorites ?? 0}</span>
         </button>
         <button
           className={`av-side-item${activeCollection === RECALL_COLLECTION ? " active" : ""}`}
-          onClick={() => selectCollection(RECALL_COLLECTION)}
-        >
+          onClick={() => selectCollection(RECALL_COLLECTION)}>
           <span className="av-side-dot av-side-recall" />
           <span className="av-side-name">147 Recall</span>
-          <span className="av-side-count">
-            {counts[RECALL_COLLECTION] ?? 0}
-          </span>
+          <span className="av-side-count">{counts[RECALL_COLLECTION] ?? 0}</span>
         </button>
-
-        {collections.map((collection) => (
-          <div className="av-collection-row" key={collection}>
-            {draft?.type === DRAFT_RENAME &&
-            draft.collection === collection ? (
-              renderDraft()
+        {collections.map((c) => (
+          <div className="av-collection-row" key={c}>
+            {draftMode === "rename" && draftCollection === c ? (
+              collectionForm()
             ) : (
               <>
                 <button
-                  className={`av-side-item${activeCollection === collection ? " active" : ""}`}
-                  onClick={() => selectEditableCollection(collection)}
-                  onContextMenu={(event) =>
-                    openCollectionMenu(event, collection)
-                  }
-                  onTouchStart={() => startTouchMenu(collection)}
-                  onTouchEnd={clearTouchMenu}
-                  onTouchMove={clearTouchMenu}
-                  onTouchCancel={clearTouchMenu}
-                >
+                  className={`av-side-item${activeCollection === c ? " active" : ""}`}
+                  onClick={() => selectCollection(c)}
+                  onContextMenu={(e) => openMenu(e, c)}
+                  onTouchStart={() => startHold(c)}
+                  onTouchEnd={stopHold}
+                  onTouchMove={stopHold}
+                  onTouchCancel={stopHold}>
                   <span className="av-side-dot" />
-                  <span className="av-side-name">{collection}</span>
-                  <span className="av-side-count">
-                    {counts[collection] ?? 0}
-                  </span>
+                  <span className="av-side-name">{c}</span>
+                  <span className="av-side-count">{counts[c] ?? 0}</span>
                 </button>
-
-                {menuCollection === collection && (
+                {menuFor === c && (
                   <div
                     className="av-collection-menu"
-                    onClick={(event) => event.stopPropagation()}
-                  >
-                    <button
-                      type="button"
-                      onClick={() => startRenameCollection(collection)}
-                    >
+                    onClick={(e) => e.stopPropagation()}>
+                    <button type="button" onClick={() => startRename(c)}>
                       Rename
                     </button>
                     <button
                       className="danger"
                       type="button"
-                      onClick={() => deleteCollection(collection)}
-                    >
+                      onClick={() => removeCollection(c)}>
                       Delete
                     </button>
                   </div>
@@ -300,14 +257,13 @@ export default function Sidebar({
 
       <div className="av-side-label">Languages</div>
       <div className="av-lang-row">
-        {LANGUAGES.map((language) => (
+        {LANGUAGES.map((l) => (
           <button
-            key={language}
-            className={`av-lang-chip${activeLang === language ? " active" : ""}`}
-            title={language}
-            onClick={() => selectLang(language)}
-          >
-            {language.slice(0, 2).toUpperCase()}
+            key={l}
+            className={`av-lang-chip${activeLang === l ? " active" : ""}`}
+            title={l}
+            onClick={() => selectLang(l)}>
+            {l.slice(0, 2).toUpperCase()}
           </button>
         ))}
       </div>

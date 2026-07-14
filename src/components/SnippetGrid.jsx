@@ -12,12 +12,7 @@ export default function SnippetGrid({
   onNewNote,
 }) {
   if (notes.length === 0) {
-    return (
-      <EmptyState
-        activeCollection={activeCollection}
-        onNewNote={onNewNote}
-      />
-    );
+    return <EmptyState activeCollection={activeCollection} onNewNote={onNewNote} />;
   }
 
   return (
