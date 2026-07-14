@@ -153,12 +153,19 @@ npm run preview
 ## Usage
 
 1. Open SnipDesk in your browser.
-2. Use the search bar to find saved snippets by title, tag, language, explanation, or code body.
-3. Select a language or tag from the sidebar to narrow the list.
-4. Click **New Note** to create a reusable code note.
-5. Add a short reason for saving the snippet so it is easier to remember later.
-6. Use **Copy** on a note card to copy the snippet.
-7. Use **Edit** to open the drawer editor and update a note.
+2. Start from the landing page to understand the project and feature flow.
+3. Open the workspace at `/app` to manage your code notes.
+4. Use the search bar to find saved snippets by title, tag, language, explanation, or code body.
+5. Select a language or tag from the sidebar to narrow the list.
+6. Click **New Note** to create a reusable code note.
+7. Add a short reason for saving the snippet so it is easier to remember later.
+8. Use **Copy** on a note card to copy the snippet.
+9. Use **Edit** to open the drawer editor and update a note.
+
+## App Routes
+
+- `/` - public landing page for the project
+- `/app` - developer notebook workspace for creating, searching, and editing snippets
 
 ## Previewing Pull Requests Locally
 
