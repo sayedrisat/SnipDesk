@@ -19,7 +19,7 @@ SnipDesk gives developers a dedicated place to capture reusable snippets, add co
 ## Live Demo
 
 Live Demo:
-https://snipdesk-2sp.pages.dev/
+snipdesk.liveon.workers.dev/
 
 Contributors should preview the live demo first, then run the project locally before opening a pull request.
 
