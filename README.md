@@ -8,7 +8,7 @@ SnipDesk gives developers a dedicated place to capture reusable snippets, add co
 
 ## Quick Links
 
-- [Live Demo](https://snipdesk-2sp.pages.dev/)
+- [Live Demo](snipdesk.liveon.workers.dev/)
 - [Features](#features)
 - [Installation](#installation)
 - [Contributing](#contributing)
