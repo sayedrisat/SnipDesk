@@ -1,274 +1,98 @@
 # SnipDesk
 
-Save code the way you write code.
+A browser-based code notebook for saving snippets with context, organizing collections, and finding useful code again.
 
-A developer-focused code notebook for saving, organizing, searching, and reusing code snippets.
+SnipDesk treats the code and the reason for keeping it as one note. It combines an Ace-powered editor with collection, tag, and language filters, local persistence, and a scheduled recall workflow.
 
-SnipDesk gives developers a dedicated place to capture reusable snippets, add context, organize by tags and language, and quickly find code again when it matters.
+[Live demo](https://snipdesk.liveon.workers.dev/) · [Issues](https://github.com/sayedrisat/SnipDesk/issues) · [Discussions](https://github.com/sayedrisat/SnipDesk/discussions) · [Contributing](CONTRIBUTING.md)
 
-## Quick Links
+![SnipDesk workspace](public/screenshots/snipdesk-preview.png)
 
-- [Live Demo](snipdesk.liveon.workers.dev/)
-- [Features](#features)
-- [Installation](#installation)
-- [Contributing](#contributing)
-- [Roadmap](#future-vision)
-- [Discussions](https://github.com/sayedrisat/SnipDesk/discussions)
-- [Issues](https://github.com/sayedrisat/SnipDesk/issues)
+**Status:** `0.1.0-alpha`, in active development. This is a client-side application; accounts, cloud synchronization, and AI features remain future work.
 
-## Live Demo
+## What works
 
-Live Demo:
-snipdesk.liveon.workers.dev/
+- Create, edit, copy, favorite, and delete code notes.
+- Save a title, reason, language, tags, and code with each note.
+- Search note metadata and code; filter by language and collection.
+- Create, rename, and delete collections.
+- Persist notes and collections in browser `localStorage`.
+- Enable recall for a snippet and advance or reset its scheduled review.
+- Edit code in a syntax-aware drawer and browse the workspace in grid or list views.
 
-Contributors should preview the live demo first, then run the project locally before opening a pull request.
+## Start locally
 
-## Screenshot Preview
-
-![SnipDesk UI Preview](public/screenshots/snipdesk-preview.png)
-
-## Project Status
-
-Current Version: v0.1.0-alpha
-
-Status: Active Development
-
-Looking for Contributors: Yes
-
-Primary Focus: Building a fast developer-focused code notebook.
-
-## Features
-
-- Save reusable code notes with title, reason, language, tags, and snippet body
-- Search across note metadata and optional code content
-- Browse snippets by language, collection, and tags
-- Edit notes in a right-side drawer with syntax highlighting
-- Copy snippets quickly from preview cards
-- Responsive dark UI designed for developer workflows
-- Alpha roadmap for persistence, deletion, import/export, and toast feedback
-
-## Why SnipDesk?
-
-Most note-taking apps treat code as a secondary feature.
-
-SnipDesk is built around the idea that code is the note.
-
-Instead of storing snippets inside documents, SnipDesk provides a dedicated workspace for organizing, searching, and reusing code efficiently.
-
-## Tech Stack
-
-- Vite
-- React
-- Tailwind CSS
-- Ace Editor for syntax highlighting
-- Lucide React icons
-
-## Future Vision
-
-SnipDesk is evolving from a simple code notebook into a complete developer knowledge workspace.
-
-Planned roadmap:
-
-### v0.2.0
-
-- localStorage persistence
-- delete notes
-- copy success toast
-- save success toast
-
-### v0.3.0
-
-- JSON export
-- JSON import
-- keyboard shortcuts
-- improved search experience
-
-### v0.4.0
-
-- Monaco Editor (VS Code engine)
-- syntax highlighted note previews
-- improved mobile experience
-- advanced filtering
-
-### Future Features
-
-- AI-powered snippet explanations
-- AI-generated learning notes
-- Semantic code search
-- Smart code relationships
-- Personal developer memory system
-- favorite collections
-- command palette
-- GitHub Gist integration
-- Notion integration
-- browser extension
-- VS Code extension
-- cloud sync
-
-Long-term goal:
-
-> Become the personal knowledge base for developers.
-
-Not just a place to store code, but a place to remember, organize, understand, and reuse knowledge.
-
-## Installation
-
-Clone the repository:
+Use Node.js 22, as specified in [`.node-version`](.node-version), and npm.
 
 ```bash
 git clone https://github.com/sayedrisat/SnipDesk.git
 cd SnipDesk
-```
-
-Install dependencies:
-
-```bash
-npm install
-```
-
-Start the local development server:
-
-```bash
+npm ci
 npm run dev
 ```
 
-Open the local Vite URL shown in your terminal, usually:
-
-```txt
-http://localhost:5173
-```
-
-Build for production:
+Open the URL printed by Vite. `/` is the landing page; `/app` is the notebook workspace.
 
 ```bash
 npm run build
-```
-
-Preview the production build:
-
-```bash
 npm run preview
 ```
 
+The build produces `dist/`. Development and preview bind to `0.0.0.0`, so they may be reachable from other devices on the local network.
+
+## Architecture
+
+```mermaid
+flowchart LR
+  routes[React routes] --> workspace[SnippetApp]
+  workspace --> notes[useNotes]
+  workspace --> editor[EditorDrawer and Ace]
+  notes --> storage[useLocalStorage]
+  storage --> browser[Browser localStorage]
+```
+
+| Area | Implementation |
+| --- | --- |
+| Routes | [`src/App.jsx`](src/App.jsx) |
+| Workspace composition | [`src/pages/SnippetApp.jsx`](src/pages/SnippetApp.jsx) |
+| Note, collection, filtering, and recall state | [`src/hooks/useNotes.js`](src/hooks/useNotes.js) |
+| JSON persistence | [`src/hooks/useLocalStorage.js`](src/hooks/useLocalStorage.js) |
+| Code editing | [`src/components/EditorDrawer.jsx`](src/components/EditorDrawer.jsx), [`CodeField.jsx`](src/components/CodeField.jsx) |
+
+The app uses React, Vite, Tailwind CSS, Ace Editor, Lucide icons, and GSAP. Notes and collections use the `codevault:notes` and `codevault:collections` storage keys. Search runs over the browser's current note state.
+
+## Storage and configuration
+
+The application needs no backend, API key, or environment variables. Notes stay in the current browser profile and origin. Clearing site storage, changing browsers, or opening another origin does not transfer that data. There is no cloud backup or multi-device synchronization.
+
+Keep secrets and production credentials out of snippets. Browser storage is readable by scripts on the same origin, and storage failures are logged rather than providing a durable-write guarantee.
+
 ## Usage
 
-1. Open SnipDesk in your browser.
-2. Start from the landing page to understand the project and feature flow.
-3. Open the workspace at `/app` to manage your code notes.
-4. Use the search bar to find saved snippets by title, tag, language, explanation, or code body.
-5. Select a language or tag from the sidebar to narrow the list.
-6. Click **New Note** to create a reusable code note.
-7. Add a short reason for saving the snippet so it is easier to remember later.
-8. Use **Copy** on a note card to copy the snippet.
-9. Use **Edit** to open the drawer editor and update a note.
+1. Open `/app` and choose **New Note**.
+2. Enter the code, its language, and a short explanation of why it matters.
+3. Organize the note with a collection and tags.
+4. Search, copy, favorite, or reopen it in the editor.
+5. Enable recall when you want to revisit the snippet later.
 
-## App Routes
+## Verification and deployment
 
-- `/` - public landing page for the project
-- `/app` - developer notebook workspace for creating, searching, and editing snippets
+`npm run build` verifies production bundling. There is currently no automated test or lint script in `package.json`; a successful build does not verify persistence or interactions.
 
-## Previewing Pull Requests Locally
+Before proposing UI changes, run the app and check note creation/edit/deletion, reload persistence, collection operations, filtering, copy feedback, and recall. Include screenshots and the checks actually performed in your PR.
 
-Before reviewing or opening a pull request, preview the live demo first, then run the project locally:
+The public demo is hosted on Cloudflare. For a static Pages deployment, use `npm run build`, output directory `dist`, and Node 22. Client-side routes such as `/app` need the host's SPA fallback. No deployment credentials belong in the repository.
 
-```bash
-git clone https://github.com/sayedrisat/snipdesk.git
-cd snipdesk
-npm install
-npm run dev
-```
+## Roadmap
 
-Open the local Vite URL shown in your terminal, usually:
-
-```txt
-http://localhost:5173
-```
-
-Before opening a PR, please:
-
-- run `npm run dev`
-- test the UI locally
-- take a screenshot if your change affects the UI
-- mention what you changed in the PR description
-
-## Cloudflare Pages Deployment
-
-SnipDesk is prepared for Cloudflare Pages deployment from GitHub.
-
-Recommended Cloudflare Pages settings:
-
-- Framework preset: Vite
-- Build command: `npm run build`
-- Output directory: `dist`
-- Node version: use the version in `.node-version`
+Planned areas include JSON import/export, keyboard shortcuts, improved mobile behavior, and richer search. AI explanations, semantic search, external integrations, and cloud synchronization are longer-term ideas. Existing persistence, deletion, and recall should be maintained rather than reintroduced as new features.
 
 ## Contributing
 
-Contributions are welcome. Start with a small focused issue, especially one labeled `good first issue`.
+Read [CONTRIBUTING.md](CONTRIBUTING.md), check the current issue discussion, and choose a focused change. Run the local UI and production build; attach before/after screenshots for visible changes.
 
-Suggested workflow:
-
-1. Pick an issue from the roadmap or GitHub issues.
-2. Create a focused branch.
-3. Run the app locally.
-4. Make a small, reviewable change.
-5. Test the affected UI or feature.
-6. Add screenshots for UI changes.
-7. Open a pull request with a clear before/after explanation.
-
-Read the full contributor guide in [CONTRIBUTING.md](CONTRIBUTING.md).
-
-## Looking for Contributors
-
-Contributions are welcome.
-
-Current areas where contributors can help:
-
-- React
-- Tailwind CSS
-- Monaco Editor
-- Search and Filtering
-- Accessibility
-- Developer Tooling
-- Documentation
-- Future AI Integrations
-
-Check:
-
-- [Issues](https://github.com/sayedrisat/SnipDesk/issues)
-- [Discussions](https://github.com/sayedrisat/SnipDesk/discussions)
-- [Good First Issues](https://github.com/sayedrisat/SnipDesk/labels/good%20first%20issue)
-- [Help Wanted](https://github.com/sayedrisat/SnipDesk/labels/help%20wanted)
-
-If you are looking to make your first open-source contribution, this project is beginner-friendly.
-
-## Good First Issues
-
-Good first improvements include:
-
-- Add localStorage persistence
-- Add note deletion
-- Add copy success toast notification
-- Improve mobile sidebar behavior
-- Update README screenshots
-
-## Core Maintainers
-
-- Sayed Risat
-- Aushah Gowhar
-
-## Support the Project
-
-If you find SnipDesk useful:
-
-- Star the repository
-- Share feedback
-- Open feature requests
-- Join Discussions
-- Contribute improvements
-
-Every contribution helps improve the developer experience.
+Maintainers: Sayed Risat and Aushah Gowhar.
 
 ## License
 
-SnipDesk is released under the [MIT License](LICENSE).
+[MIT](LICENSE).
