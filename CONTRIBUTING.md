@@ -69,6 +69,14 @@ Before opening a pull request:
 
 3. Test your changes.
 
+   ```bash
+   npm run test:unit
+   npx playwright install chromium  # first run
+   npm run test:e2e
+   ```
+
+   Browser tests build and serve the production app. Add focused checks under `tests/` for behavior you change; keep test data inside the isolated browser context.
+
 4. Include screenshots for UI changes.
 
 5. Explain:

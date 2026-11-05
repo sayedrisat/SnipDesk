@@ -29,3 +29,7 @@ vite-dev*.log
 .vscode/*
 !.vscode/settings.json
 !.vscode/extensions.json
+
+# Playwright artifacts
+/playwright-report/
+/test-results/

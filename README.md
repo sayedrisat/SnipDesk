@@ -15,7 +15,7 @@ SnipDesk treats the code and the reason for keeping it as one note. It combines 
 - Create, edit, copy, favorite, and delete code notes.
 - Save a title, reason, language, tags, and code with each note.
 - Search note metadata and code; filter by language and collection.
-- Create, rename, and delete collections.
+- Create collections through the current interface; state helpers also support rename/delete, but the current navigation does not expose those controls.
 - Persist notes and collections in browser `localStorage`.
 - Enable recall for a snippet and advance or reset its scheduled review.
 - Edit code in a syntax-aware drawer and browse the workspace in grid or list views.
@@ -77,9 +77,18 @@ Keep secrets and production credentials out of snippets. Browser storage is read
 
 ## Verification and deployment
 
-`npm run build` verifies production bundling. There is currently no automated test or lint script in `package.json`; a successful build does not verify persistence or interactions.
+`npm run build` verifies production bundling. The repository now has Node-based recall tests and Playwright browser tests. There is no lint script. Browser tests run against a fresh production build and preview server; every test uses an isolated browser context.
 
-Before proposing UI changes, run the app and check note creation/edit/deletion, reload persistence, collection operations, filtering, copy feedback, and recall. Include screenshots and the checks actually performed in your PR.
+```bash
+npm run test:unit                       # recall scheduling and due-state boundaries
+npx playwright install chromium         # one-time browser installation
+npm run test:e2e                        # build + production-preview browser checks
+npm test                                # both suites
+```
+
+The browser suite covers note creation/edit/deletion across reloads, code/metadata search, language filtering, and collection creation/persistence. It does not yet cover clipboard permissions, favorites, recall advancement through the UI, storage quota failures, or mobile layouts. Collection rename/delete helpers also need direct coverage before their controls are reintroduced.
+
+The CI workflow runs `npm ci`, installs Chromium with its Linux dependencies, and runs both suites on pull requests and pushes to `main`. Include screenshots and the checks actually performed in UI PRs.
 
 The public demo is hosted on Cloudflare. For a static Pages deployment, use `npm run build`, output directory `dist`, and Node 22. Client-side routes such as `/app` need the host's SPA fallback. No deployment credentials belong in the repository.
 
